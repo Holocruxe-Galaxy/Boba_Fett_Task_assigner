@@ -1,12 +1,12 @@
-import React, { useRef, useState } from "react";
-import { FiPaperclip } from "react-icons/fi";
+import React, {useRef, useState} from "react";
+import {FiPaperclip} from "react-icons/fi";
 
 // Importación de estilos
 import "./index.css";
 
-export default function SubmitFile({ setTask }) {
+export default function SubmitFile({setTask, setLoading}) {
   const [fileName, setFileName] = useState("Seleccionar un archivo");
-  const [loading, setLoading] = useState(false);
+
   const inputRef = useRef(null);
 
   const handleIconClick = () => {
@@ -24,6 +24,7 @@ export default function SubmitFile({ setTask }) {
 
   const handleSubmit = async (e) => {
     if (fileName !== "Seleccionar un archivo") {
+      setTask(false);
       setLoading(true);
       let file = document.getElementsByClassName("input-file")[0].files[0];
       const formData = new FormData();
@@ -37,9 +38,9 @@ export default function SubmitFile({ setTask }) {
           }
         );
 
+        console.log(response);
         if (response.ok) {
           const result = await response.json();
-          console.log(result);
           setTask(result);
           setLoading(false);
           console.log("Archivo subido exitosamente:", result);
@@ -52,43 +53,43 @@ export default function SubmitFile({ setTask }) {
     }
   };
   return (
-    <div className="submit-file-container">
+    <div className='submit-file-container'>
       <img
-        className="logo-ia-svg"
-        src="/logo_ia_interactive_w.png"
-        alt="IA interactive"
+        className='logo-ia-svg'
+        src='/logo_ia_interactive_w.png'
+        alt='IA interactive'
       />
-      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+      <div style={{display: "flex", alignItems: "center", gap: "8px"}}>
         <input
           ref={inputRef}
-          className="input-file"
-          type="file"
-          style={{ display: "none" }}
+          className='input-file'
+          type='file'
+          style={{display: "none"}}
           onChange={handleFileChange}
         />
         {fileName && (
           <span
-            style={{ cursor: "pointer" }}
+            style={{cursor: "pointer"}}
             onClick={handleIconClick}
-            className="file-name"
+            className='file-name'
           >
             {fileName}
           </span>
         )}{" "}
         <FiPaperclip
-          color="white"
+          color='white'
           size={20}
           onClick={handleIconClick}
-          style={{ cursor: "pointer" }}
+          style={{cursor: "pointer"}}
         />
       </div>
 
       <button
-        disabled={loading || fileName === "Seleccionar un archivo"}
+        disabled={fileName === "Seleccionar un archivo"}
         onClick={(e) => {
           handleSubmit(e);
         }}
-        className="submit-button"
+        className='submit-button'
       >
         Submit doc
       </button>

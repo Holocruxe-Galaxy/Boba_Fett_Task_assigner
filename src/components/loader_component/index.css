@@ -1,0 +1,22 @@
+.loader-container {
+  background: rgba(90, 87, 87, 0.175);
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 50vh;
+  width: 60vw;
+  backdrop-filter: blur(20px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, 0.317);
+  border-radius: 13px;
+  pointer-events: all;
+}
+.loader-text {
+  font-size: 20px;
+  color: white;
+}
